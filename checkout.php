@@ -61,7 +61,6 @@ $grand_total = $subtotal - $discount_amount;
 ?>
 
 <style>
-    /* ... (โค้ด CSS เดิมของคุณจากคำตอบที่แล้ว ไม่ต้องแก้) ... */
     .checkout-layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; margin-top: 30px; margin-bottom: 40px; }
     @media (max-width: 900px) { .checkout-layout { grid-template-columns: 1fr; } .checkout-summary { grid-row: 1; } }
     .checkout-delivery h2 { margin-top: 0; font-size: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
@@ -183,7 +182,6 @@ $grand_total = $subtotal - $discount_amount;
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // 🟢 (เหลือแค่ Script นี้)
     const tabs = document.querySelectorAll('.delivery-tab');
     const paymentInput = document.getElementById('payment_method');
     

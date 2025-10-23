@@ -133,7 +133,6 @@ $orders_result = mysqli_query($conn, "SELECT * FROM orders ORDER BY created_at D
 
     </div> </div> <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // ... (โค้ด JS เดิมสำหรับ Tabs ไม่ต้องแก้) ...
     const tabLinks = document.querySelectorAll('.tab-link');
     const tabPanes = document.querySelectorAll('.tab-pane');
     tabLinks.forEach(function(link) {

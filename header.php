@@ -1,7 +1,5 @@
 <?php
     session_start(); // เริ่ม Session ที่นี่ ที่เดียว
-    // (ถ้ายังไม่ include) อาจจะต้อง include connectdb.php ที่นี่ด้วย
-    // หากบางหน้าจำเป็นต้องใช้ $conn ใน header
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -68,8 +66,9 @@
                     <li><a href="index.php#best-sellers">BEST SELLERS</a></li>
                 </ul>
                 <div class="nav-icons">
-                    <a href="#">🔍</a>
-                    <a href="#">♡ (0)</a>
+                    <a href="favorites.php">
+                        ♡ (<span id="fav-count">0</span>)
+                    </a>
                     <a href="#" id="cart-toggle-btn" class="nav-cart-btn">
                         🛒 (<span id="cart-count">0</span>)
                     </a>

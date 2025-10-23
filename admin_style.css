@@ -20,7 +20,6 @@
 }
 
 /* === Admin "Card" Style === */
-/* เราจะใช้ .admin-card เป็นกล่องหลัก */
 .admin-card {
     background-color: #ffffff;
     border: 1px solid #ddd;
@@ -153,7 +152,7 @@
     margin: 20px 0;
 }
 
-/* --- ฟอร์ม Status (สวยขึ้น) --- */
+/* --- ฟอร์ม Status --- */
 .status-update-form select {
     padding: 10px;
     font-size: 16px;
@@ -176,7 +175,7 @@
     background-color: #0056b3;
 }
 
-/* --- รายการสินค้าในออเดอร์ (สวยขึ้น) --- */
+/* --- รายการสินค้าในออเดอร์ --- */
 .order-item {
     display: flex;
     gap: 15px;
@@ -212,14 +211,14 @@
     color: #333;
 }
 
-/* --- สีของ Status (เหมือนเดิม) --- */
+/* --- สีของ Status --- */
 .status-pending { color: #f39c12; font-weight: bold; }
 .status-processing { color: #3498db; font-weight: bold; }
 .status-shipped { color: #9b59b6; font-weight: bold; }
 .status-completed { color: #28a745; font-weight: bold; }
 .status-cancelled { color: #dc3545; font-weight: bold; }
 
-/* --- Alert Messages (เหมือนเดิม) --- */
+/* --- Alert Messages --- */
 .alert {
     padding: 15px;
     margin-bottom: 20px;

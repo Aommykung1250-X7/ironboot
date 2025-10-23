@@ -42,9 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     mysqli_stmt_close($stmt_check);
-
-    // 5. (!!! แก้ไข) ไม่ต้อง Hash รหัสผ่าน
-    // $hashed_password = password_hash($password, PASSWORD_DEFAULT); // <-- ลบบรรทัดนี้
     
     // 6. บันทึก User ใหม่ลง Database
     $sql_insert = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";

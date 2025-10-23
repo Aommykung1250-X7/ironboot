@@ -3,10 +3,6 @@
             <p>&copy; 2025 IRONBOOTS. All rights reserved.</p>
         </div>
 </footer>
-<?php
-        // 8. ปิดการเชื่อมต่อฐานข้อมูล (ถ้ามีใน footer)
-        // $conn->close(); // (ถ้า $conn ถูกเรียกใช้ใน footer)
-    ?>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -36,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const response = await fetch('cart_action.php?action=get');
             const data = await response.json();
-            
             // อัปเดตเนื้อหาตะกร้า
             cartBody.innerHTML = data.html;
             // อัปเดตจำนวนใน Header
@@ -69,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ===== 4. การทำงานเมื่อคลิก (Event Listeners) =====
     
-    // 4.1 คลิกปุ่มตะกร้า 🛒 (ใน Header)
+    // 4.1 คลิกปุ่มตะกร้า (ใน Header)
     cartToggleBtn.addEventListener('click', function(e) {
         e.preventDefault();
         toggleCart(true); // เปิดตะกร้า
@@ -131,6 +126,79 @@ document.addEventListener('DOMContentLoaded', function() {
     // ดึงข้อมูลตะกร้า (เพื่อแสดงจำนวนใน Header)
     fetchCart();
 
+    const allWishlistButtons = document.querySelectorAll('.wishlist-btn');
+    const favCountEl = document.getElementById('fav-count'); // ตัวเลขใน Navbar
+
+    // 1. 🟢 (ใหม่) สร้างฟังก์ชัน "ดึงยอด" (แบบเดียวกับ fetchCart)
+    //    (ฟังก์ชันนี้จะเรียก API action=get_count)
+    async function fetchFavoriteCount() {
+        if (!favCountEl) return; // (ถ้าหน้าไม่มีตัวนับ ก็ไม่ต้องทำ)
+
+        try {
+            // 1.1 ยิงไปที่ API (action=get_count)
+            const response = await fetch('favorite_action.php?action=get_count');
+            const data = await response.json();
+            
+            if (data.status === 'success') {
+                // 1.2 อัปเดตตัวเลขใน Navbar
+                favCountEl.innerText = data.count;
+            }
+        } catch (error) {
+            console.error('Error fetching favorite count:', error);
+        }
+    }
+
+    // 2. 🟢 (อัปเกรด) แก้ไข Click Handler (ปุ่ม ♡)
+    allWishlistButtons.forEach(button => {
+        button.addEventListener('click', async function() {
+            
+            const productId = this.dataset.productId;
+            const formData = new FormData();
+            formData.append('product_id', productId);
+            // (เรายิงไปที่ action=toggle (default))
+
+            try {
+                // 2.1 ยิง API (action=toggle)
+                const response = await fetch('favorite_action.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    
+                    // 3. 🟢 (เปลี่ยน) เมื่อสำเร็จ -> ให้เรียกฟังก์ชัน "ดึงยอด"
+                    await fetchFavoriteCount(); // 👈 นี่คือการอัปเดตตัวเลข
+                    
+                    // 4. (เหมือนเดิม) เปลี่ยนสีปุ่ม
+                    if (data.action === 'added') {
+                        this.classList.add('active');
+                        this.innerHTML = '♥';
+                    } else if (data.action === 'removed') {
+                        this.classList.remove('active');
+                        this.innerHTML = '♡';
+                        if (document.body.contains(document.querySelector('.favorite-page-title'))) {
+                            this.closest('.product-card').style.display = 'none';
+                        }
+                    }
+                    
+                } else if (data.message === 'login_required') {
+                    alert('กรุณา Login เพื่อใช้งานระบบ Favorite ครับ');
+                } else {
+                    alert('เกิดข้อผิดพลาด: ' + data.message);
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('เกิดข้อผิดพลาดในการเชื่อมต่อ');
+            }
+        });
+    });
+
+    // 5. 🟢 (ใหม่) เรียก "ดึงยอด" 1 ครั้งตอนโหลดหน้า
+    // (เพื่อให้ตัวเลขถูกต้องตั้งแต่แรก)
+    fetchFavoriteCount();
+    
 });
 </script>
 

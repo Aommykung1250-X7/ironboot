@@ -8,19 +8,19 @@ if (!isset($_SESSION['user_id']) || $_SERVER["REQUEST_METHOD"] != "POST") {
     exit;
 }
 
-// 2. (เหมือนเดิม) ตรวจสอบ: ตะกร้าต้องไม่ว่าง
+// 2. ตรวจสอบ: ตะกร้าต้องไม่ว่าง
 if (empty($_SESSION['cart'])) {
     header("Location: index.php");
     exit;
 }
 
-// 3. (กลับเป็นแบบเดิม) รับข้อมูลจากฟอร์ม (รับตัวแปรแบบ Text)
+// 3. รับข้อมูลจากฟอร์ม (รับตัวแปรแบบ Text)
 $user_id = $_SESSION['user_id'];
 $customer_name = $_POST['customer_name'];
 $phone_number = $_POST['phone_number'];
 $payment_method = $_POST['payment_method'];
 
-// 4. (กลับเป็นแบบเดิม) "รวม" ที่อยู่ทั้งหมดเป็น 1 String
+// 4. "รวม" ที่อยู่ทั้งหมดเป็น 1 String
 $address = $_POST['address'];
 $sub_district = $_POST['sub_district']; // <-- รับ Text
 $district = $_POST['district'];     // <-- รับ Text
@@ -83,7 +83,7 @@ try {
     
     $order_id = $conn->insert_id;
 
-    // 8. (เหมือนเดิม) บันทึก 'order_items'
+    // 8. บันทึก 'order_items'
     $sql_items = "INSERT INTO order_items (order_id, product_id, quantity, price, size) VALUES (?, ?, ?, ?, ?)";
     $stmt_items = $conn->prepare($sql_items);
     foreach ($_SESSION['cart'] as $item) {
@@ -94,7 +94,7 @@ try {
         }
     }
 
-    // 9. (เหมือนเดิม) Commit, ล้างตะกร้า, ส่งไปหน้า history
+    // 9. Commit, ล้างตะกร้า, ส่งไปหน้า history
     $conn->commit();
     unset($_SESSION['cart']);
     $_SESSION['message'] = "สั่งซื้อสำเร็จ! (Order ID: $order_id)";
@@ -103,7 +103,7 @@ try {
     exit;
 
 } catch (Exception $e) {
-    // 10. (เหมือนเดิม) Rollback
+    // 10. Rollback
     $conn->rollback();
     $_SESSION['message'] = "เกิดข้อผิดพลาดในการสั่งซื้อ: " . $e->getMessage();
     $_SESSION['message_type'] = "alert-error";
