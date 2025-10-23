@@ -1,0 +1,238 @@
+/* admin_style.css */
+/* CSS กลางสำหรับหน้า Admin */
+
+/* === Main Layout === */
+.admin-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px; /* ใช้ padding ที่นี่แทน */
+}
+
+.admin-container h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #333;
+}
+.admin-container > p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* === Admin "Card" Style === */
+/* เราจะใช้ .admin-card เป็นกล่องหลัก */
+.admin-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.admin-card h2 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* === Dashboard Tabs (ดีไซน์ใหม่) === */
+.admin-tabs {
+    display: flex;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+.tab-link {
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    margin-bottom: -2px; /* ดึงแท็บมาทับเส้นขอบ */
+}
+.tab-link:hover {
+    color: #000;
+}
+.tab-link.active {
+    color: #2c3e50;
+    border-bottom-color: #2c3e50;
+}
+.tab-pane {
+    display: none;
+}
+.tab-pane.active {
+    display: block;
+}
+
+/* === Dashboard Table Styles === */
+.admin-actions {
+    margin-bottom: 20px;
+}
+.btn-add {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+.btn-add:hover {
+    background-color: #218838;
+}
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.admin-table th, .admin-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+    vertical-align: middle;
+}
+.admin-table th {
+    background-color: #f2f2f2;
+}
+.admin-table img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+.actions a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 10px;
+}
+.actions a.delete {
+    color: #dc3545;
+}
+.actions a.btn-view {
+    color: white;
+    background-color: #007bff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+/* === Order Detail Layout (2-Column Grid) === */
+.order-detail-layout {
+    display: grid;
+    /* แบ่ง 1 ส่วน (ซ้าย) : 1.5 ส่วน (ขวา) */
+    grid-template-columns: 1fr 1.5fr; 
+    gap: 30px;
+}
+/* ถ้าจอมือถือ ให้เป็น 1 คอลัมน์ */
+@media (max-width: 900px) {
+    .order-detail-layout { grid-template-columns: 1fr; }
+}
+
+.order-info h3, .order-items-list h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+}
+.order-info p {
+    margin: 0 0 10px 0;
+    line-height: 1.6;
+    color: #555;
+}
+.order-info p b {
+    color: #333; /* ทำให้ตัวหนาชัดขึ้น */
+}
+.order-info hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+/* --- ฟอร์ม Status (สวยขึ้น) --- */
+.status-update-form select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+.status-update-form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+.status-update-form button:hover {
+    background-color: #0056b3;
+}
+
+/* --- รายการสินค้าในออเดอร์ (สวยขึ้น) --- */
+.order-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+.order-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+.order-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+.order-item-info { flex: 1; }
+.order-item-info p { margin: 0 0 5px 0; }
+.order-item-info .item-name { 
+    font-weight: bold; 
+    color: #333; 
+    font-size: 15px;
+}
+.order-item-info .item-meta { 
+    font-size: 13px; 
+    color: #666; 
+}
+.order-item .item-total {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+/* --- สีของ Status (เหมือนเดิม) --- */
+.status-pending { color: #f39c12; font-weight: bold; }
+.status-processing { color: #3498db; font-weight: bold; }
+.status-shipped { color: #9b59b6; font-weight: bold; }
+.status-completed { color: #28a745; font-weight: bold; }
+.status-cancelled { color: #dc3545; font-weight: bold; }
+
+/* --- Alert Messages (เหมือนเดิม) --- */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.alert-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}

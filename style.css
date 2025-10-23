@@ -1,0 +1,570 @@
+/* ===== Smooth Scroll Animation ===== */
+html {
+    scroll-behavior: smooth;
+    /* เพิ่ม padding ด้านบน เพื่อไม่ให้หัวข้อหมวดหมู่ชิดขอบจอบนเกินไป */
+    /* 90px คือความสูงของ Navbar โดยประมาณ (ปรับค่าได้ตามต้องการ) */
+    scroll-padding-top: 20px; 
+}
+/* Basic Reset */
+body, h1, h2, h3, p, ul {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif; /* คุณสามารถเปลี่ยน font ได้ */
+    background-color: #ffffff;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== Header Styles (แบบใหม่ตามรูป) ===== */
+.top-bar {
+    background-color: #2c3e50; /* สีน้ำเงินเข้ม */
+    padding: 10px 0;
+}
+
+.top-bar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-bar .auth-links {
+    display: flex;
+    gap: 15px;
+}
+
+.top-bar .auth-links a {
+    text-decoration: none;
+    color: #ecf0f1; /* สีขาวนวล */
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.top-bar .auth-links span {
+    color: #ecf0f1; /* สีขาวนวล (สีเดียวกับลิงก์) */
+    font-size: 12px;
+    font-weight: bold;
+    align-self: center; /* ช่วยจัดให้อยู่กึ่งกลางแนวตั้ง */
+}
+
+/* สไตล์ของโลโก้ (จากของเดิม แต่ให้มั่นใจว่ามี) */
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.main-nav {
+    background-color: #ffffff; /* พื้นหลังสีขาว */
+}
+
+.main-nav .container {
+    position: relative; /* ตั้งเป็น relative เพื่อให้ icons 'absolute' ได้ */
+    text-align: center; /* จัดให้เมนู <ul> อยู่ตรงกลาง */
+}
+
+.main-nav ul {
+    display: inline-flex; /* ทำให้ <ul> อยู่ตรงกลางได้ */
+    list-style: none;
+    gap: 25px;
+    margin: 0;
+    padding: 20px 0; /* เพิ่มช่องว่างบน-ล่าง ให้เมนู */
+}
+
+.main-nav ul li a {
+    text-decoration: none;
+    color: #333; /* สีตัวอักษรสีเข้ม */
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.main-nav ul li a:hover {
+    color: #000;
+}
+
+.main-nav .nav-icons {
+    position: absolute; /* ลอยไอคอนไปทางขวา */
+    right: 20px; /* 20px คือ padding ของ .container */
+    top: 50%;
+    transform: translateY(-50%); /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+    display: flex;
+    gap: 20px;
+}
+
+.main-nav .nav-icons a {
+    text-decoration: none;
+    color: #333; /* ไอคอนสีเข้ม */
+    font-size: 16px;
+}
+
+/* สไตล์สำหรับเส้นคั่น */
+.nav-separator {
+    height: 1px;
+    background-color: #e0e0e0; /* สีเทาอ่อน */
+    margin-top: 0; /* ถ้า main-nav มี padding-bottom แล้ว ไม่ต้องใช้ margin */
+}
+
+/* ===== จบส่วน Header Styles ===== */
+
+/* ===== Promotion Section ===== */
+.promo-section {
+    padding: 30px 0;
+    text-align: center;
+}
+
+.promo-banner-img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.promo-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.promo-info p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.shop-now-link {
+    display: inline-block;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #333;
+}
+
+/* ===== Product Section Styles ===== */
+.product-section {
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #e74c3c; /* สีแดงแบบในรูป */
+    margin-bottom: 25px;
+}
+
+.product-grid {
+    display: grid;
+    /* 4 คอลัมน์ตาม Layout */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+}
+
+/* ===== Product Card Styles ===== */
+.product-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.product-card .wishlist-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 20px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.product-card .wishlist-icon:hover {
+    color: #e74c3c; /* สีแดง */
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 10px;
+    background-color: #f9f9f9; /* พื้นหลังรูปสินค้า */
+}
+
+.product-card .product-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.product-card .product-price {
+    font-size: 16px;
+    color: #555;
+    font-weight: bold;
+}
+/* ===== (เพิ่มใหม่) CSS สำหรับ Side Cart ===== */
+
+/* 1. พื้นหลังมืด (Overlay) */
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.cart-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 2. ตัวตะกร้า (Drawer) */
+.side-cart {
+    position: fixed;
+    top: 0;
+    right: -100%; /* ซ่อนไว้นอกจอด้านขวา */
+    width: 380px; /* ความกว้างตะกร้า */
+    max-width: 90%;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.4s ease;
+}
+.side-cart.active {
+    right: 0; /* เลื่อนเข้ามา */
+}
+
+/* 3. ส่วนหัวตะกร้า */
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+}
+.cart-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+.cart-close-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #888;
+}
+
+/* 4. ส่วนเนื้อหา (รายการสินค้า) */
+.cart-body {
+    flex: 1; /* ทำให้ยืดเต็มพื้นที่ที่เหลือ */
+    overflow-y: auto; /* มี scrollbar ถ้าของเยอะ */
+    padding: 20px;
+}
+.cart-empty-message {
+    text-align: center;
+    color: #777;
+    margin-top: 40px;
+}
+
+/* 5. การ์ดสินค้าแต่ละชิ้นในตะกร้า */
+.cart-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 15px;
+}
+.cart-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 1px solid #eee;
+}
+.cart-item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.cart-item-name {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+.cart-item-price {
+    color: #555;
+    margin-bottom: 10px;
+}
+.cart-item-qty {
+    display: flex;
+    align-items: center;
+}
+.cart-item-qty label {
+    font-size: 14px;
+    margin-right: 5px;
+}
+.cart-qty-input {
+    width: 50px;
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.cart-remove-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #dc3545;
+    cursor: pointer;
+}
+
+/* 6. ส่วนท้าย (สรุปยอด) */
+.cart-footer {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    background-color: #f9f9f9;
+}
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+.btn-checkout {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+}
+.btn-checkout:hover {
+    background-color: #34495e;
+}
+
+/* 7. (แก้ไข) ทำให้ปุ่มตะกร้าใน Header เป็นปุ่ม */
+.nav-cart-btn {
+    cursor: pointer;
+}
+
+/* ===== (อัปเดตใหม่) CSS สำหรับหน้า Product Detail (ตามรูป) ===== */
+
+.product-detail-layout {
+    display: flex;
+    flex-wrap: wrap; /* ทำให้ขึ้นบรรทัดใหม่เมื่อจอมือถือ */
+    margin-top: 40px;
+    margin-bottom: 40px;
+    gap: 40px; /* ช่องว่างระหว่างรูปกับข้อมูล */
+}
+
+.product-detail-left {
+    flex: 1.2; /* ให้รูปใหญ่กว่าข้อมูลนิดหน่อย */
+    min-width: 320px;
+}
+.product-detail-left img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+}
+.image-caption {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    margin-top: 10px;
+}
+
+.product-detail-right {
+    flex: 1;
+    min-width: 300px;
+    padding-left: 20px;
+}
+
+.product-detail-name {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.stock-status {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+.stock-status.in-stock {
+    color: #28a745; /* สีเขียว */
+}
+
+.product-detail-price {
+    font-size: 26px;
+    font-weight: bold;
+    color: #333; /* สีดำ (ตามรูป) */
+    display: block;
+    margin-bottom: 25px;
+}
+
+/* --- ตัวเลือก Size --- */
+.size-selector {
+    margin-bottom: 15px;
+}
+.size-selector label {
+    font-weight: bold;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 10px;
+}
+.size-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+    gap: 8px;
+}
+.size-btn {
+    padding: 8px 5px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+.size-btn:hover {
+    border-color: #333;
+}
+.size-btn.selected {
+    background-color: #2c3e50; /* สีเข้ม */
+    color: #ffffff;
+    border-color: #2c3e50;
+}
+.size-chart-link {
+    font-size: 14px;
+    color: #555;
+    text-decoration: underline;
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+/* --- ตัวเลือก Quantity (ตามรูป) --- */
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.quantity-selector label {
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 15px;
+}
+.qty-btn {
+    width: 30px;
+    height: 30px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.quantity-selector input[type="number"] {
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-right: none;
+    padding: 5px;
+    box-sizing: border-box;
+    /* ซ่อนลูกศรขึ้นลงของ input number */
+    -moz-appearance: textfield;
+}
+.quantity-selector input[type="number"]::-webkit-outer-spin-button,
+.quantity-selector input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* --- ปุ่ม Add to Cart (ตามรูป) --- */
+.btn-add-to-cart {
+    background-color: #2c3e50; /* สีน้ำเงินเข้ม */
+    color: white;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    text-transform: uppercase;
+}
+.btn-add-to-cart:hover {
+    background-color: #34495e;
+}
+
+
+/* --- (ตามคำขอ) ตาราง Size Chart --- */
+.size-chart-section {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+}
+.size-chart-section h2 {
+    text-align: left;
+    margin-bottom: 20px;
+}
+table.size-chart-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+table.size-chart-table th,
+table.size-chart-table td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+}
+table.size-chart-table th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+}
+table.size-chart-table tr:nth-child(even) {
+    background-color: #fcfcfc;
+}
+
+/* ===== Footer Styles ===== */
+footer {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 40px;
+}
